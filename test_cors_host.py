@@ -35,7 +35,7 @@ def verify_remote_glb(url):
     )
     
     try:
-        with urllib.request.urlopen(req, timeout=15) as response:
+        with urllib.request.urlopen(req, timeout=60) as response:
             status = response.status
             print(f"HTTP Status: {status}")
             if status != 200:
