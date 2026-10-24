@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alec Douglas-Home - High Fidelity 3D Face Model</title>
+    <title>Alec Douglas-Home - Meshy 7.1 High-Fidelity 3D Face Model</title>
     <!-- Google Model Viewer for GLTF/GLB -->
     <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
     <style>
         body {
             margin: 0;
             padding: 0;
-            background-color: #0f1015;
+            background-color: #0b0c10;
             color: #ffffff;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             display: flex;
@@ -34,12 +34,12 @@
         }
         .container {
             width: 90vw;
-            max-width: 820px;
-            height: 580px;
-            background: radial-gradient(circle at 50% 40%, #1e222d 0%, #0d0f14 100%);
+            max-width: 840px;
+            height: 600px;
+            background: radial-gradient(circle at 50% 45%, #1f2430 0%, #0d0f14 100%);
             border-radius: 16px;
-            box-shadow: 0 12px 40px rgba(0,0,0,0.6);
-            border: 1px solid #232734;
+            box-shadow: 0 16px 48px rgba(0,0,0,0.7);
+            border: 1px solid #282f40;
             overflow: hidden;
             position: relative;
             margin: 16px 0;
@@ -56,20 +56,20 @@
             justify-content: center;
         }
         .badge {
-            background: #171a23;
-            border: 1px solid #2c3242;
+            background: #141822;
+            border: 1px solid #2e364a;
             padding: 6px 14px;
             border-radius: 20px;
             font-size: 0.85rem;
-            color: #4ade80;
+            color: #38ef7d;
             font-weight: 500;
         }
         .instructions {
-            background: #151821;
-            border-left: 4px solid #3b82f6;
+            background: #131722;
+            border-left: 4px solid #10b981;
             padding: 12px 18px;
             border-radius: 4px;
-            max-width: 780px;
+            max-width: 800px;
             font-size: 0.9rem;
             line-height: 1.5;
             margin-bottom: 24px;
@@ -80,26 +80,26 @@
 <body>
     <header>
         <h1>Alec Douglas-Home (1963)</h1>
-        <p>High-Fidelity 3D Anatomical Face Reconstruction &bull; glTF 2.0 Model</p>
+        <p>AI 3D Face Reconstruction (Meshy 7.1) &bull; glTF 2.0 Model</p>
         <div class="badge-bar">
             <span class="badge">&check; Valid glTF 2.0 (GLB)</span>
-            <span class="badge">&check; File size: ~543 KB (&lt; 2 MB limit)</span>
-            <span class="badge">&check; 9,279 Vertices &bull; 17,684 Triangles</span>
-            <span class="badge">&check; Full 3D Cranium, Ears &amp; Neck Topology</span>
+            <span class="badge">&check; File size: 1.22 MB (&lt; 2 MB limit)</span>
+            <span class="badge">&check; 16,675 Vertices &bull; 103,456 Triangles</span>
+            <span class="badge">&check; 3D Photogrammetric Depth &amp; Hair Geometry</span>
         </div>
     </header>
 
     <div class="container">
         <model-viewer 
             src="face.glb" 
-            alt="High-Fidelity 3D Face Model of Alec Douglas-Home" 
+            alt="Meshy 7.1 3D Face Model of Alec Douglas-Home" 
             auto-rotate 
             camera-controls 
-            camera-orbit="0deg 75deg 12m"
-            camera-target="0m 0.6m 0m"
+            camera-orbit="0deg 80deg 3.5m"
+            camera-target="0m 0m 0m"
             field-of-view="35deg"
             rotation-per-second="25deg"
-            shadow-intensity="1.2"
+            shadow-intensity="1.5"
             exposure="1.0"
             ar>
         </model-viewer>
