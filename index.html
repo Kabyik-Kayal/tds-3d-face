@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alec Douglas-Home (1963) — 3D Face Model</title>
+    <!-- Meshopt Decoder configuration for glTF-Transform optimized models -->
+    <script>
+        self.ModelViewerElement = self.ModelViewerElement || {};
+        self.ModelViewerElement.meshoptDecoderLocation = 'https://cdn.jsdelivr.net/npm/meshoptimizer/meshopt_decoder.js';
+    </script>
     <!-- Google Model Viewer -->
     <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
     <style>
@@ -228,8 +233,8 @@
         <button class="tab-btn active" onclick="loadModel('meshy_alec_douglas_home.glb', '45.6 MB', '1,170,766', '2,143,080', this)">
             <span>🌟</span> Raw Meshy 3D Model (45.6 MB)
         </button>
-        <button class="tab-btn" onclick="loadModel('face.glb', '1.88 MB', '14,210', '91,379', this)">
-            <span>📦</span> Submission Version (&lt; 2 MB)
+        <button class="tab-btn" onclick="loadModel('face.glb', '1.81 MB', '106,758', '139,210', this)">
+            <span>📦</span> Submission Version (1.81 MB)
         </button>
     </div>
 
