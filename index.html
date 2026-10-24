@@ -3,96 +3,250 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alec Douglas-Home - Meshy 7.1 High-Fidelity 3D Face Model</title>
-    <!-- Google Model Viewer for GLTF/GLB -->
+    <title>Alec Douglas-Home (1963) — 3D Face Model Viewer</title>
+    <!-- Google Model Viewer component -->
     <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
     <style>
-        body {
+        :root {
+            --bg-color: #0b0c10;
+            --card-bg: #151821;
+            --border-color: #232936;
+            --accent-color: #3b82f6;
+            --accent-hover: #2563eb;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --success-color: #10b981;
+        }
+
+        * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            background-color: #0b0c10;
-            color: #ffffff;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             display: flex;
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
+            padding: 20px 16px 40px;
         }
+
         header {
             text-align: center;
-            padding: 24px 16px 12px;
+            max-width: 900px;
+            margin-bottom: 20px;
         }
+
         h1 {
-            margin: 0 0 6px 0;
-            font-size: 1.85rem;
+            font-size: 2rem;
+            font-weight: 700;
             letter-spacing: -0.5px;
+            margin-bottom: 6px;
         }
-        p {
-            color: #9da3af;
-            margin: 4px 0;
-            font-size: 0.95rem;
+
+        p.subtitle {
+            color: var(--text-muted);
+            font-size: 1rem;
         }
-        .container {
-            width: 90vw;
-            max-width: 840px;
-            height: 600px;
-            background: radial-gradient(circle at 50% 45%, #1f2430 0%, #0d0f14 100%);
-            border-radius: 16px;
-            box-shadow: 0 16px 48px rgba(0,0,0,0.7);
-            border: 1px solid #282f40;
-            overflow: hidden;
-            position: relative;
+
+        /* Model Switcher Tabs */
+        .switcher {
+            display: flex;
+            gap: 10px;
+            background: #11141c;
+            padding: 6px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
             margin: 16px 0;
+            flex-wrap: wrap;
+            justify-content: center;
         }
+
+        .tab-btn {
+            background: transparent;
+            color: var(--text-muted);
+            border: none;
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-size: 0.92rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tab-btn:hover {
+            color: var(--text-main);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .tab-btn.active {
+            background: var(--accent-color);
+            color: #ffffff;
+            box-shadow: 0 4px 14px rgba(59, 130, 246, 0.4);
+        }
+
+        /* 3D Viewer Container */
+        .viewer-card {
+            width: 100%;
+            max-width: 900px;
+            height: 600px;
+            background: radial-gradient(circle at 50% 40%, #1c2230 0%, #0c0e14 100%);
+            border-radius: 16px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+            border: 1px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+        }
+
         model-viewer {
             width: 100%;
             height: 100%;
         }
-        .badge-bar {
+
+        /* Loading Progress Overlay */
+        .progress-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            z-index: 10;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            width: 0%;
+            background: var(--accent-color);
+            transition: width 0.15s ease;
+        }
+
+        .loading-text {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(8px);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+            display: none;
+            z-index: 10;
+        }
+
+        /* Info Badge Bar */
+        .stats-bar {
             display: flex;
             gap: 12px;
-            margin-top: 10px;
+            margin-top: 14px;
             flex-wrap: wrap;
             justify-content: center;
         }
-        .badge {
-            background: #141822;
-            border: 1px solid #2e364a;
-            padding: 6px 14px;
+
+        .stat-badge {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 8px 16px;
             border-radius: 20px;
             font-size: 0.85rem;
-            color: #38ef7d;
-            font-weight: 500;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
-        .instructions {
-            background: #131722;
-            border-left: 4px solid #10b981;
-            padding: 12px 18px;
-            border-radius: 4px;
-            max-width: 800px;
+
+        .stat-badge strong {
+            color: var(--text-main);
+        }
+
+        .stat-badge.highlight {
+            border-color: rgba(16, 185, 129, 0.4);
+            color: var(--success-color);
+        }
+
+        /* Controls Help */
+        .info-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-left: 4px solid var(--accent-color);
+            padding: 14px 20px;
+            border-radius: 8px;
+            max-width: 900px;
+            width: 100%;
+            margin-top: 20px;
             font-size: 0.9rem;
-            line-height: 1.5;
-            margin-bottom: 24px;
-            color: #cbd5e1;
+            line-height: 1.6;
+            color: var(--text-muted);
+        }
+
+        .info-card strong {
+            color: var(--text-main);
+        }
+
+        .download-links {
+            margin-top: 10px;
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .dl-btn {
+            color: #60a5fa;
+            text-decoration: none;
+            font-size: 0.85rem;
+            background: #1e2433;
+            padding: 6px 12px;
+            border-radius: 6px;
+            border: 1px solid #2d3748;
+            transition: all 0.2s ease;
+        }
+
+        .dl-btn:hover {
+            background: #2b354b;
+            color: #93c5fd;
         }
     </style>
 </head>
 <body>
     <header>
         <h1>Alec Douglas-Home (1963)</h1>
-        <p>AI 3D Face Reconstruction (Meshy 7.1) &bull; glTF 2.0 Model</p>
-        <div class="badge-bar">
-            <span class="badge">&check; Valid glTF 2.0 (GLB)</span>
-            <span class="badge">&check; File size: 1.22 MB (&lt; 2 MB limit)</span>
-            <span class="badge">&check; 16,675 Vertices &bull; 103,456 Triangles</span>
-            <span class="badge">&check; 3D Photogrammetric Depth &amp; Hair Geometry</span>
-        </div>
+        <p class="subtitle">3D Photogrammetric Face Reconstruction &bull; Interactive Multi-Model Inspector</p>
     </header>
 
-    <div class="container">
+    <!-- Model Switcher Tabs -->
+    <div class="switcher">
+        <button class="tab-btn active" onclick="loadModel('meshy_alec_douglas_home.glb', '36 MB', '1,541,643', '1,461,898', this)">
+            <span>🌟</span> Raw Meshy 3D Model (36 MB)
+        </button>
+        <button class="tab-btn" onclick="loadModel('meshy_texture_editor.glb', '73 MB', '1,541,643', '1,461,898', this)">
+            <span>🔬</span> Uncompressed Model (73 MB)
+        </button>
+        <button class="tab-btn" onclick="loadModel('face.glb', '1.22 MB', '16,675', '103,456', this)">
+            <span>📦</span> Submission Version (&lt; 2 MB)
+        </button>
+    </div>
+
+    <!-- Viewer Card -->
+    <div class="viewer-card">
+        <div class="progress-bar">
+            <div class="progress-bar-fill" id="progressFill"></div>
+        </div>
+        <div class="loading-text" id="loadingText">Downloading 3D model: 0%</div>
+
         <model-viewer 
-            src="face.glb" 
-            alt="Meshy 7.1 3D Face Model of Alec Douglas-Home" 
+            id="viewer"
+            src="meshy_alec_douglas_home.glb" 
+            alt="3D Face Model of Alec Douglas-Home" 
             auto-rotate 
             camera-controls 
             camera-orbit="0deg 80deg 3.5m"
@@ -105,8 +259,67 @@
         </model-viewer>
     </div>
 
-    <div class="instructions">
-        <strong>Controls:</strong> Left-click and drag to rotate the 3D head in 360&deg;. Scroll to zoom in and out. Right-click and drag to pan.
+    <!-- Stats Bar -->
+    <div class="stats-bar">
+        <div class="stat-badge">File Size: <strong id="statSize">36.0 MB</strong></div>
+        <div class="stat-badge">Vertices: <strong id="statVerts">1,541,643</strong></div>
+        <div class="stat-badge">Triangles: <strong id="statTris">1,461,898</strong></div>
+        <div class="stat-badge highlight" id="statCheck">&check; Full High-Density Topology</div>
     </div>
+
+    <!-- Info & Download Card -->
+    <div class="info-card">
+        <p><strong>Controls:</strong> Left-click + drag to rotate 360&deg;. Scroll wheel to zoom in/out. Right-click + drag to pan.</p>
+        <div class="download-links">
+            <a class="dl-btn" href="meshy_alec_douglas_home.glb" download>⬇ Download Raw 36 MB GLB</a>
+            <a class="dl-btn" href="meshy_texture_editor.glb" download>⬇ Download Uncompressed 73 MB GLB</a>
+            <a class="dl-btn" href="face.glb" download>⬇ Download Submission &lt; 2 MB GLB</a>
+        </div>
+    </div>
+
+    <script>
+        const viewer = document.getElementById('viewer');
+        const progressFill = document.getElementById('progressFill');
+        const loadingText = document.getElementById('loadingText');
+
+        const statSize = document.getElementById('statSize');
+        const statVerts = document.getElementById('statVerts');
+        const statTris = document.getElementById('statTris');
+        const statCheck = document.getElementById('statCheck');
+
+        // Progress bar handling
+        viewer.addEventListener('progress', (e) => {
+            const percent = Math.round(e.detail.totalProgress * 100);
+            progressFill.style.width = percent + '%';
+            if (percent < 100) {
+                loadingText.style.display = 'block';
+                loadingText.innerText = `Downloading 3D model: ${percent}%`;
+            } else {
+                loadingText.style.display = 'none';
+                setTimeout(() => { progressFill.style.width = '0%'; }, 300);
+            }
+        });
+
+        function loadModel(filename, size, verts, tris, btn) {
+            // Update active tab
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            // Update stats
+            statSize.innerText = size;
+            statVerts.innerText = verts;
+            statTris.innerText = tris;
+            if (filename === 'face.glb') {
+                statCheck.innerHTML = '&check; Auto-Check Compliant (&lt; 2 MB)';
+            } else {
+                statCheck.innerHTML = '&check; Full High-Density Topology';
+            }
+
+            // Load model
+            loadingText.style.display = 'block';
+            loadingText.innerText = 'Loading ' + filename + '...';
+            viewer.src = filename;
+        }
+    </script>
 </body>
 </html>
