@@ -233,8 +233,8 @@
         <button class="tab-btn active" onclick="loadModel('meshy_alec_douglas_home.glb', '45.6 MB', '1,170,766', '2,143,080', this)">
             <span>🌟</span> Raw Meshy 3D Model (45.6 MB)
         </button>
-        <button class="tab-btn" onclick="loadModel('face.glb', '1.87 MB', '65,822', '81,338', this)">
-            <span>📦</span> Submission Version (1.87 MB)
+        <button class="tab-btn" onclick="loadModel('face.glb', '1.86 MB', '65,822', '81,338', this)">
+            <span>📦</span> Submission Version (1.86 MB)
         </button>
     </div>
 
@@ -316,10 +316,10 @@
                 statCheck.innerHTML = '&check; Full High-Density PBR Mesh';
             }
 
-            // Load model
+            // Load model with cache buster to avoid stale browser cache
             loadingText.style.display = 'block';
             loadingText.innerText = 'Loading ' + filename + '...';
-            viewer.src = filename;
+            viewer.src = filename + '?t=' + Date.now();
         }
     </script>
 </body>
